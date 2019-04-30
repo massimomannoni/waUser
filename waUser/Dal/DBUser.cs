@@ -65,7 +65,7 @@ namespace waUser.Dal
 
                         cmd.CommandTimeout = DataBase.COMMANDTIMEOUT;
 
-                        using (var dr = await cmd.ExecuteReaderAsync())
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
                         {
                             while (await dr.ReadAsync())
                             {
