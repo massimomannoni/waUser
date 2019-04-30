@@ -27,7 +27,7 @@ namespace waUser.Models
 
     public class ResponseUser : BaseResponse 
     {
-        // could result mutable it's type maintaining a single construct  ? 
+        // could result mutate it's type maintaining a single construct  ? 
         public ResponseUser(bool success, string message, bool result) : base(success, message, result) { }
 
         public ResponseUser(bool success, string message, List<User> result) : base(success, message, result) { }
