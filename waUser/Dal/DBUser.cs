@@ -11,7 +11,6 @@ namespace waUser.Dal
 {
     internal class RepoUser : DBFunctions, IRepository<User, ResponseUser>
     {
-
         internal async Task<ResponseUser> Add(User user)
         {
             ResponseUser result;

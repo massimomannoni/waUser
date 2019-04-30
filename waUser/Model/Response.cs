@@ -11,13 +11,13 @@ namespace waUser.Models
     {
 
         [JsonProperty("success")]
-        public  bool Success { get; set; }
+        private bool Success { get; set; }
 
         [JsonProperty("message")]
-        public  string Message { get;  set; }
+        private  string Message { get; set; }
 
         [JsonProperty("result")]
-        public virtual dynamic Result { get; set; }
+        protected virtual dynamic Result { get; set; }
 
         public BaseResponse(bool success, string message, dynamic result)
         {
@@ -36,7 +36,7 @@ namespace waUser.Models
             this.Result = result;
         }
 
-        public override dynamic Result
+        protected override dynamic Result
         {
             get
             {
@@ -49,11 +49,7 @@ namespace waUser.Models
 
                 return result;
             }
-            set
-            {
-
-                base.Result = value;
-            }
+            set => base.Result = value;
         }
     }
 }
