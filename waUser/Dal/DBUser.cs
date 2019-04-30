@@ -20,7 +20,6 @@ namespace waUser.Dal
                 using (SqlConnection conn = NewConnection())
                 {
                     using (SqlCommand cmd = NewCommand(conn, "InsUser", CommandType.StoredProcedure,
-                      Param("@UserId", user.UserID, SqlDbType.BigInt),
                       Param("@Email", user.Email, SqlDbType.VarChar),
                       Param("@Password", user.Password, SqlDbType.VarChar),
                       Param("@Confirmed", user.Confirmed, SqlDbType.Bit)))
@@ -50,9 +49,51 @@ namespace waUser.Dal
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetAll()
+        internal async Task<ResponseUser> GetAll()
         {
-            throw new NotImplementedException();
+            ResponseUser result;
+
+            List<User> users = new List<User>();
+
+            try
+            {
+                using (SqlConnection conn = NewConnection())
+                {
+                    using (SqlCommand cmd = NewCommand(conn, "GetUsers", CommandType.StoredProcedure))
+                    {
+                        await conn.OpenAsync();
+
+                        cmd.CommandTimeout = DataBase.COMMANDTIMEOUT;
+
+                        using (var dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                User user = new User();
+                                user.UserID = (long)dr["UserID"];
+                                user.Email = (string)dr["Email"];
+                                user.Password = (string)dr["Password"];
+                                user.Confirmed = (bool)dr["Confirmed"];
+                                user.CreationDate = (DateTime)dr["CreationDate"];
+                                users.Add(user);
+                            }
+
+                            dr.Close();
+                        }
+
+                        result = new ResponseUser(true, string.Empty, users);
+
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
         }
 
         public Task<User> GetByID(int id)
@@ -66,6 +107,11 @@ namespace waUser.Dal
         }
 
         Task<ResponseUser> IRepository<User, ResponseUser>.Add(User value)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<User> IRepository<User, ResponseUser>.GetAll()
         {
             throw new NotImplementedException();
         }

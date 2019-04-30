@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Globalization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace waUser.Models
 {
@@ -17,39 +14,30 @@ namespace waUser.Models
         private  string Message { get; set; }
 
         [JsonProperty("result")]
-        protected virtual dynamic Result { get; set; }
+        protected virtual dynamic Result{ get; set; } 
 
         public BaseResponse(bool success, string message, dynamic result)
         {
-            this.Success = success;
-            this.Message = message;
-            this.Result = result;
+            Success = success;
+            Message = message;
+            Result = result;
         }
 
     }
 
-    public class ResponseUser : BaseResponse
+    public class ResponseUser : BaseResponse 
     {
 
         public ResponseUser(bool success, string message, bool result) : base(success, message, result)
         {
-            this.Result = result;
+         
         }
-
-        protected override dynamic Result
+        public ResponseUser(bool success, string message, List<User> result) : base(success, message, result)
         {
-            get
-            {
-                bool result = false;
 
-                if (base.Result == "true")
-                {
-                    result = true;
-                }
-
-                return result;
-            }
-            set => base.Result = value;
         }
+
     }
+
+    
 }

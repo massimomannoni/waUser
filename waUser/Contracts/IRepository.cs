@@ -14,7 +14,7 @@ namespace waUser.Contracts
         Task<T> GetByID(int id);
 
         // return a list  of T model
-        Task<List<T>> GetAll();
+        Task<T> GetAll();
 
         Task<R> Add(T value);
 

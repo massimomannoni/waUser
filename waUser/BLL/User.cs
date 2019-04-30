@@ -29,5 +29,26 @@ namespace waUser.BLL
             }
             return response;
         }
+
+        internal static async Task<ResponseUser> GetAll()
+        {
+            RepoUser repoUser = new RepoUser();
+            ResponseUser response;
+
+            try
+            {
+                response = await Task.FromResult(repoUser.GetAll()).Result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                repoUser = null;
+            }
+            return response;
+        }
     }
 }

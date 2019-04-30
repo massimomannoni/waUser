@@ -14,9 +14,19 @@ namespace waUser.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ResponseUser> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            ResponseUser response;
+
+            response = await Task.FromResult(BLLUser.GetAll()).Result;
+
+            if (response == null)
+            {
+                // need to transport the exception
+                response = new ResponseUser(false, "error", false);
+            }
+
+            return response;
         }
 
         // GET api/values/5
