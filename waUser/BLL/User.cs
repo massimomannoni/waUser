@@ -7,7 +7,7 @@ using waUser.Dal;
 
 namespace waUser.BLL
 {
-    internal static class BLLUser 
+    internal static class BLLUser
     { 
         internal static async Task<ResponseUser> Add(User user)
         {

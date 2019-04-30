@@ -15,7 +15,7 @@ namespace waUser.Models
 
         public bool Confirmed { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
  
     }
 
