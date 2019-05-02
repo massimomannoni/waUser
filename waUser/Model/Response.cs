@@ -4,35 +4,79 @@ using System.Collections.Generic;
 
 namespace waUser.Models
 {
-    public abstract class BaseResponse
-    {
+    //public abstract class BaseResponse
+    //{
 
+    //    [JsonProperty("success")]
+    //    private bool Success { get; set; }
+
+    //    [JsonProperty("message")]
+    //    private  string Message { get; set; }
+
+    //    [JsonProperty("result")]
+    //    protected virtual dynamic Result{ get; set; } 
+
+    //    public BaseResponse(bool success, string message, dynamic result)
+    //    {
+    //        Success = success;
+    //        Message = message;
+    //        Result = result;
+    //    }
+
+    //}
+
+    //public class ResponseUser : BaseResponse
+    //{
+    //    // could result mutate it's type maintaining a single construct  ? 
+    //    public ResponseUser(bool success, string message, bool result) : base(success, message, result) { }
+
+    //    public ResponseUser(bool success, string message, List<User> result) : base(success, message, result) { }
+
+    //}
+
+    public interface IBaseResponse
+    {
         [JsonProperty("success")]
-        private bool Success { get; set; }
+        bool Success { get; set; }
 
         [JsonProperty("message")]
-        private  string Message { get; set; }
+        string Message { get; set; }
+
+    }
+
+    public class ResponseAddUser: IBaseResponse
+    {
+        public bool Success { get;  set; }
+        public string Message { get;  set; }
 
         [JsonProperty("result")]
-        protected virtual dynamic Result{ get; set; } 
+        public bool Result { get; private set; }
 
-        public BaseResponse(bool success, string message, dynamic result)
+        public ResponseAddUser(bool success, string message, bool result)
         {
             Success = success;
             Message = message;
             Result = result;
+
         }
-
     }
 
-    public class ResponseUser : BaseResponse 
+    public class ResponseGetUsers : IBaseResponse
     {
-        // could result mutate it's type maintaining a single construct  ? 
-        public ResponseUser(bool success, string message, bool result) : base(success, message, result) { }
+        public bool Success { get;  set; }
+        public string Message { get;  set; }
 
-        public ResponseUser(bool success, string message, List<User> result) : base(success, message, result) { }
+        [JsonProperty("result")]
+        public List<User> Result { get; private set; }
 
+        public ResponseGetUsers(bool success, string message, List<User> users)
+        {
+            Success = success;
+            Message = message;
+            Result = users;
+
+        }
     }
 
-    
+
 }

@@ -9,10 +9,10 @@ namespace waUser.BLL
 {
     internal static class BLLUser
     { 
-        internal static async Task<ResponseUser> Add(User user)
+        internal static async Task<ResponseAddUser> Add(User user)
         {
             RepoUser repoUser = new RepoUser();
-            ResponseUser response;
+            IBaseResponse response;
 
             try
             {
@@ -27,13 +27,14 @@ namespace waUser.BLL
             {
                 repoUser = null;
             }
-            return response;
+
+            return response as ResponseAddUser;
         }
 
-        internal static async Task<ResponseUser> GetAll()
+        internal static async Task<ResponseGetUsers> GetAll()
         {
             RepoUser repoUser = new RepoUser();
-            ResponseUser response;
+            IBaseResponse response;
 
             try
             {
@@ -48,7 +49,8 @@ namespace waUser.BLL
             {
                 repoUser = null;
             }
-            return response;
+
+            return response as ResponseGetUsers;
         }
     }
 }

@@ -9,11 +9,12 @@ using waUser.Contracts;
 
 namespace waUser.Dal
 {
-    internal class RepoUser : DBFunctions, IRepository<User, ResponseUser>
+    internal class RepoUser : DBFunctions, IRepository<User, IBaseResponse>
     {
-        internal async Task<ResponseUser> Add(User user)
+
+        public async Task<IBaseResponse> Add(User user)
         {
-            ResponseUser result;
+            ResponseAddUser result;
 
             try
             {
@@ -30,7 +31,7 @@ namespace waUser.Dal
 
                         await cmd.ExecuteNonQueryAsync();
 
-                        result = new ResponseUser(true, string.Empty, true);
+                        result = new ResponseAddUser(true, string.Empty, true);
 
                     }
                     conn.Close();
@@ -44,14 +45,9 @@ namespace waUser.Dal
             return result;
         }
 
-        public Task<ResponseUser> Delete(User value)
+        public async Task<IBaseResponse> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        internal async Task<ResponseUser> GetAll()
-        {
-            ResponseUser result;
+            ResponseGetUsers result;
 
             List<User> users = new List<User>();
 
@@ -81,7 +77,7 @@ namespace waUser.Dal
                             dr.Close();
                         }
 
-                        result = new ResponseUser(true, string.Empty, users);
+                        result = new ResponseGetUsers(true, string.Empty, users);
 
                     }
 
@@ -96,24 +92,6 @@ namespace waUser.Dal
             return result;
         }
 
-        public Task<User> GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseUser> Update(User value)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<ResponseUser> IRepository<User, ResponseUser>.Add(User value)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<User> IRepository<User, ResponseUser>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

@@ -14,16 +14,16 @@ namespace waUser.Controllers
     {
         // GET api/values
         [HttpGet]
-        public async Task<ResponseUser> GetAll()
+        public async Task<ResponseGetUsers> GetAll()
         {
-            ResponseUser response;
+            ResponseGetUsers response;
 
             response = await Task.FromResult(BLLUser.GetAll()).Result;
 
             if (response == null)
             {
                 // need to transport the exception
-                response = new ResponseUser(false, "error", false);
+                response = new ResponseGetUsers(false, "error", response.Result);
             }
 
             return response;
@@ -38,9 +38,9 @@ namespace waUser.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<ResponseUser> Post([FromBody] User user)
+        public async Task<ResponseAddUser> Post([FromBody] User user)
         {
-            ResponseUser response;
+            ResponseAddUser response;
 
             if (user != null)
             {
@@ -49,7 +49,7 @@ namespace waUser.Controllers
             else
             {
                 // need to transport the exception
-                response = new ResponseUser(false, "error", false);
+                response = new ResponseAddUser(false, "error", false);
             }
 
             return response;   
