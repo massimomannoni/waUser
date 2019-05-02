@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using waUser.Contracts;
 
 namespace waUser.Models
 {
@@ -19,7 +20,7 @@ namespace waUser.Models
     //    public BaseResponse(bool success, string message, dynamic result)
     //    {
     //        Success = success;
-    //        Message = message;
+    //         Message = message;
     //        Result = result;
     //    }
 
@@ -34,16 +35,6 @@ namespace waUser.Models
 
     //}
 
-    public interface IBaseResponse
-    {
-        [JsonProperty("success")]
-        bool Success { get; set; }
-
-        [JsonProperty("message")]
-        string Message { get; set; }
-
-    }
-
     public class ResponseAddUser: IBaseResponse
     {
         public bool Success { get;  set; }
@@ -57,7 +48,6 @@ namespace waUser.Models
             Success = success;
             Message = message;
             Result = result;
-
         }
     }
 
@@ -74,7 +64,6 @@ namespace waUser.Models
             Success = success;
             Message = message;
             Result = users;
-
         }
     }
 
