@@ -31,9 +31,19 @@ namespace waUser.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ResponseGetUsers> GetByID()
         {
-            return "value";
+            ResponseGetUsers response;
+
+            response = await Task.FromResult(BLLUser.GetAll()).Result;
+
+            if (response == null)
+            {
+                // need to transport the exception
+                response = new ResponseGetUsers(false, "error", response.Result);
+            }
+
+            return response;
         }
 
         // POST api/values

@@ -41,6 +41,10 @@ namespace waUser
                 app.UseHsts();
             }
 
+            string baseDir = env.ContentRootPath;
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(baseDir, "App_Data"));
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using waUser.Models;
 using waUser.Dal;
+using waUser.Contracts;
 
 namespace waUser.BLL
 {

@@ -23,6 +23,7 @@ namespace waUser.Dal
                     using (SqlCommand cmd = NewCommand(conn, "InsUser", CommandType.StoredProcedure,
                       Param("@Email", user.Email, SqlDbType.VarChar),
                       Param("@Password", user.Password, SqlDbType.VarChar),
+                      Param("@IMEI", user.IMEI, SqlDbType.VarChar),
                       Param("@Confirmed", user.Confirmed, SqlDbType.Bit)))
                     {
                         await conn.OpenAsync();
