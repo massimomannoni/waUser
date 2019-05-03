@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using waUser.Models;
 using waUser.BLL;
+using System;
 
 namespace waUser.Controllers
 {
@@ -12,6 +10,7 @@ namespace waUser.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+
         // GET api/values
         [HttpGet]
         public async Task<ResponseGetUsers> GetAll()
@@ -30,6 +29,7 @@ namespace waUser.Controllers
         }
 
         // GET api/values/5
+   
         [HttpGet("{id}")]
         public async Task<ResponseGetUsers> GetByID()
         {
@@ -47,12 +47,14 @@ namespace waUser.Controllers
         }
 
         // POST api/values
+   
         [HttpPost]
         public async Task<ResponseAddUser> Post([FromBody] User user)
         {
             ResponseAddUser response;
+        
 
-            if (user != null)
+            if (ModelState.IsValid)
             {
                 response = await Task.FromResult(BLLUser.Add(user)).Result;
             }

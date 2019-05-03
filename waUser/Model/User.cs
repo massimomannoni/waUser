@@ -1,21 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using RequiredAttribute = waUser.Extensions.RequiredAttribute;
-using StringLengthAttribute = waUser.Extensions.StringLengthAttribute;
+
 
 namespace waUser.Models
 {
-    public class User
+    public class User 
     {
         public long UserID { get; set; }
 
-        [Required(ErrorMessage = "Email Required")]
-        [StringLength(80, ErrorMessage: "Must be between 5 and 80 characters", MinimumLength: 5)]
+        [StringLength(60, MinimumLength = 8, ErrorMessage = "Email must have a minimum length of {1} and maximum length of {0} ")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage ="Email format is not correct")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password Required")]
-        [StringLength(80, ErrorMessage: "Must be between 8 and 80 characters", MinimumLength: 8)]
+        [StringLength(60, MinimumLength = 8, ErrorMessage = "Password must have a minimum length of {1} and maximum length of {0} ")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -26,13 +26,9 @@ namespace waUser.Models
         public DateTime? ConfirmedDate { get; set; }
 
         public DateTime? CreationDate { get; set; }
- 
+
     }
 
-    internal class Customer : User
-    {
-        internal string Name { get; set; }
 
-        internal string SurName { get; set; }
-    }
+
 }

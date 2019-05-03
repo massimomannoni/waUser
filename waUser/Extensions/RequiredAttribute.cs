@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Net.Mail;
 
 namespace waUser.Extensions
 {
-    internal class RequiredAttribute : Attribute
+    internal class IsValid: Attribute
     {
-        public string ErrorMessage { get; set; }
+        private readonly string Email;
+        private readonly string ErrorMessage;
+
+        public IsValid(string Email, string ErrorMessage)
+        {
+            this.Email = Email;
+            this.ErrorMessage = ErrorMessage;
+        }
     }
 }

@@ -9,9 +9,12 @@ using waUser.Contracts;
 namespace waUser.BLL
 {
     internal static class BLLUser
-    { 
+    {
+  
         internal static async Task<ResponseAddUser> Add(User user)
         {
+
+            
             RepoUser repoUser = new RepoUser();
             IBaseResponse response;
 
